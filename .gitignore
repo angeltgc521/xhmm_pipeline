@@ -1,2 +1,7 @@
-probe_regions.bed target_regions.bed
-autism_noncoding.filtered_centered.RD.filtered_samples.txt autism_noncoding.filtered_centered.RD.filtered_targets.txt autism_noncoding.filtered_centered.RD.txt autism_noncoding.PCA_norm.filt_center.excluded_samples.txt autism_noncoding.PCA_norm.filt_center.excluded_targets.txt autism_noncoding.PCA_norm.filt_center.txt autism_noncoding.PCA_norm.txt autism_noncoding.PCA_norm.txt.num_removed_PC.txt autism_noncoding.posteriors.DEL.txt autism_noncoding.posteriors.DIP.txt autism_noncoding.posteriors.DUP.txt autism_noncoding.RD_PCA.PC_LOADINGS.txt autism_noncoding.RD_PCA.PC_SD.txt autism_noncoding.RD_PCA.PC.txt autism_noncoding.same_filtered.RD.txt GATK_depths.txt merged_GATK_depths.txt params.txt
+*.bed
+*.txt
+*xcnv
+*.swp
+log/
+GATK_depth/
+.snakemake/
