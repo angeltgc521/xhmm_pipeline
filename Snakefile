@@ -1,5 +1,8 @@
 import os
 
+if config == {}:
+    configfile: "config.json"
+
 DS_NAME = config["ds_name"]
 REGIONS = config["regions"]
 PARAM_FILE = config["param_file"]
@@ -24,7 +27,7 @@ rule all:
     input: expand("%s/{sample}.DATA.{ext}" % OUTDIR, sample = SAMPLES.keys(), ext = ["sample_interval_summary", "sample_interval_statistics"])
 
 rule discover_cnvs:
-    input: "%s.PCA_norm.txt" % DS_NAME, "autism_noncoding.same_filtered.RD.txt"
+    input: "%s.PCA_norm.filt_center.txt" % DS_NAME, "autism_noncoding.same_filtered.RD.txt"
     output: "%s.xcnv" % DS_NAME, "%s.aux_xcnv" % DS_NAME
     params: sge_opts = "-l mfree=20G"
     shell:
@@ -48,18 +51,18 @@ rule pca_filt_center:
         "--outputExcludedTargets {output[1]} --outputExcludedSamples {output[2]} --maxSdTargetRD 30"
 
 rule pca_normalize:
-    input: "%s.filtered_centered.RD.txt" % DS_NAME, "%s.RD_PCA" % DS_NAME
+    input: "%s.filtered_centered.RD.txt" % DS_NAME, "%s.RD_PCA.PC.txt" % DS_NAME
     output: "%s.PCA_norm.txt" % DS_NAME
-    params: sge_opts = "-l mfree=20G"
+    params: sge_opts = "-l mfree=20G", pca_prefix = "%s.RD_PCA" % DS_NAME
     shell:
-        "{XHMM_PATH} --normalize -r {input[0]} --PCAfiles {input[1]} --normalizeOutput {output[0]} --PCnormalizeMethod PVE_mean --PVE_mean_factor 0.7"
+        "{XHMM_PATH} --normalize -r {input[0]} --PCAfiles {params.pca_prefix} --normalizeOutput {output[0]} --PCnormalizeMethod PVE_mean --PVE_mean_factor 0.7"
 
 rule run_pca:
     input: "%s.filtered_centered.RD.txt" % DS_NAME
-    output: "%s.RD_PCA" % DS_NAME
-    params: sge_opts = "-l mfree=20G"
+    output: "%s.RD_PCA.PC.txt" % DS_NAME
+    params: sge_opts = "-l mfree=20G", pca_prefix = "%s.RD_PCA" % DS_NAME
     shell:
-        "{XHMM_PATH} --PCA -r {input} --PCAfiles {output}"
+        "{XHMM_PATH} --PCA -r {input} --PCAfiles {params.pca_prefix}"
 
 rule filt_center:
     input: "merged_GATK_depths.txt"
