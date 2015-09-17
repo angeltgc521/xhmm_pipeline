@@ -1,15 +1,14 @@
 import os
 
-DS_NAME = "autism_noncoding"
-REGIONS = "probe_regions.bed"
-PARAM_FILE = "params.txt"
+DS_NAME = config["ds_name"]
+REGIONS = config["regions"]
+PARAM_FILE = config["param_file"]
+SAMPLE_DIR = config["sample_dir"]
 
-REF = "/net/eichler/vol2/eee_shared/assemblies/human_1kg_v37/human_1kg_v37.fasta"
-OUTDIR = "GATK_depth"
+REF = config["ref"]
+XHMM_PATH = config["xhmm_path"]
 
-SAMPLE_DIR = "/net/eichler/vol21/projects/autism_noncoding_capture/nobackups/analysis/bam"
-
-XHMM_PATH = "/net/eichler/vol4/home/tychele/software/xhmm/statgen-xhmm-3c57d886bc96/xhmm"
+OUTDIR = config["outdir"]
 
 SAMPLES = {}
 

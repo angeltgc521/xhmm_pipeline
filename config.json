@@ -1,0 +1,10 @@
+{
+  "ds_name": "autism_noncoding",
+  "regions": "probe_regions.bed",
+  "sample_dir": "/net/eichler/vol21/projects/autism_noncoding_capture/nobackups/analysis/bam",
+  "param_file": "params.txt",
+
+  "ref": "/net/eichler/vol2/eee_shared/assemblies/human_1kg_v37/human_1kg_v37.fasta",  
+  "xhmm_path": "/net/eichler/vol4/home/tychele/software/xhmm/statgen-xhmm-3c57d886bc96/xhmm", 
+  "outdir": "GATK_depth"  
+}
